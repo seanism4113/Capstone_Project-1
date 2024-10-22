@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+GoodReads | Profile
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="row g-0">
+        <div class="col-md-3">
+            <img src="{{ stored_user.profile_image_url }}" id="profile-pic" class="img-fluid" alt="Profile Image" />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div id="profile-header">
+                    <h5 class="card-title Roboto">{{ stored_user.first_name }} {{ stored_user.last_name }}</h5>
+                    <small>
+                        <a href="{{ url_for('edit_profile') }}" class="ms-2">edit profile</a>
+                    </small>
+                </div>
+                <p class="card-text mt-3">
+                    <b>Email: </b>{{ stored_user.email }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

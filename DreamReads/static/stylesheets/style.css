@@ -1,0 +1,501 @@
+/* HTML page and Body styles */
+/* ********************************************************************* */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100vh;
+}
+
+.content {
+	padding: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* Navbar styles */
+/* ********************************************************************* */
+
+.navbar {
+	background-color: #f4f2e9;
+	align-content: center;
+	font-family: Roboto;
+	height: 68px;
+	padding: 0px;
+}
+
+.navbar li {
+	padding: 0px;
+}
+
+.main-nav {
+	height: 68px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+}
+
+.main-nav:hover {
+	background-color: #212529;
+	color: white;
+}
+
+#site-logo {
+	font-size: 2.7rem;
+	margin-bottom: 0px;
+	margin-left: 40px;
+	color: rgb(76, 44, 21);
+}
+
+#site-logo span:first-child {
+	font-weight: 100;
+	color: rgb(39, 140, 59);
+}
+
+.nav-btn {
+	background-color: rgb(76, 44, 21);
+	color: #f4f2e9;
+	margin-right: 20px;
+	padding: 7px 20px;
+}
+
+.nav-btn:hover {
+	background-color: rgb(100, 44, 21);
+	color: #f4f2e9;
+}
+
+.nav-item {
+	padding: 0px 10px;
+	font-size: 1.1rem;
+}
+
+#nav-content ul:first-of-type {
+	align-items: center;
+	margin-right: 70px;
+}
+
+#nav-content2 {
+	border-top: 1px solid lightgrey;
+	height: 50px;
+}
+
+.second-nav {
+	height: 49px;
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+}
+
+.second-nav:hover {
+	background-color: #212529;
+	color: white;
+}
+
+#nav2 {
+	justify-content: space-evenly;
+}
+
+/* SearchBar styles */
+/* ********************************************************************* */
+
+.searchbar {
+	margin: 0px 40px;
+}
+
+.switch-search {
+	font-size: 14px;
+	font-weight: bold;
+	align-self: flex-end;
+	margin-top: 5px;
+	margin-right: 60px;
+}
+
+/* Footer styles */
+/* ********************************************************************* */
+
+footer {
+	background-color: #212529;
+	color: white;
+	padding: 20px;
+}
+
+footer p {
+	margin-bottom: 2px;
+}
+
+footer div:first-of-type {
+	text-align: center;
+}
+
+footer ul {
+	justify-content: center;
+}
+
+.social-icons {
+	margin-top: 5px;
+}
+
+.fa-brands {
+	padding-left: 5px;
+	font-size: 20px;
+}
+
+footer .nav-link {
+	color: white;
+}
+
+/* HomePage Anon styles */
+/* ********************************************************************* */
+
+#anon-div {
+	position: relative;
+}
+
+#login-card-wrapper {
+	position: absolute;
+	font-family: Roboto;
+	top: 150px;
+	right: 40px;
+	width: 280px;
+	text-align: center;
+	margin-top: 75px;
+}
+
+#login-card {
+	position: sticky;
+	top: 20px;
+	z-index: 10;
+	background-color: white;
+}
+
+.card-header {
+	background-color: white;
+	border-bottom: none;
+	font-size: large;
+}
+
+.card-footer {
+	border-top: none;
+	background-color: white;
+	padding-bottom: 0px;
+}
+
+#signup-btn {
+	width: 100%;
+	margin-bottom: 30px;
+	border-radius: 3px;
+}
+
+#welcome-container {
+	margin-top: 20px;
+	position: relative;
+}
+
+.books-img {
+	width: 100%;
+	height: 300px;
+	border-radius: 5px;
+	object-fit: cover;
+}
+
+#break {
+	margin-left: auto;
+	margin-right: auto;
+	width: 84%;
+	border-bottom: solid 1px rgb(207, 207, 207);
+}
+
+#welcome-section {
+	margin-top: 20px;
+	display: flex;
+	width: 90%;
+}
+
+#welcome-section div {
+	margin-right: 40px;
+	padding-right: 10px;
+}
+
+#quotes-section div {
+	margin-bottom: 20px;
+}
+
+#quotes-section p {
+	font-style: italic;
+	font-weight: 200;
+	margin-bottom: 5px;
+}
+
+#quotes-section span {
+	font-weight: 500;
+}
+
+/* Search & Browse html page styles */
+/* ********************************************************************* */
+
+.list-group-item {
+	border-right: none;
+	border-left: none;
+	border-top: 1px solid rgb(158, 157, 157);
+	border-bottom: 1px solid rgb(158, 157, 157);
+	padding: 30px 0px;
+	display: flex;
+}
+
+.list-group {
+	border-radius: 0px;
+	width: 85%;
+}
+
+#search-tag {
+	margin-bottom: 7px;
+}
+
+.cover-img {
+	width: 100px;
+	height: 151px;
+	border: lightgrey 1px solid;
+}
+
+.cover-div {
+	margin-right: 10px;
+}
+
+.book-info {
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+}
+
+.book-info p {
+	margin-top: 20px;
+}
+
+.categories {
+	display: flex;
+	flex-direction: column;
+	justify-items: flex-end;
+}
+
+.book-results-list {
+	margin-top: 30px;
+}
+
+.book-info2 {
+	margin-left: 30px;
+	content: flex-end;
+	width: 20%;
+}
+
+.book-info h5 {
+	font-family: Roboto;
+	font-weight: 500;
+	margin-bottom: 0px;
+}
+
+.book-info2 div {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 7px;
+}
+
+.book-info2 span {
+	font-size: small;
+}
+
+.book-info2 div span:first-child {
+	font-weight: bold;
+}
+
+.description-extend:hover {
+	cursor: pointer;
+	color: darkblue;
+}
+
+#num-results {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.fa-star {
+	color: rgb(239, 204, 6);
+}
+
+.fa-star-half-alt {
+	color: rgb(239, 204, 6);
+}
+
+/* SignIn html page styles */
+/* ********************************************************************* */
+
+.merriweather {
+	font-family: Merriweather;
+}
+
+.Roboto {
+	font-family: Roboto;
+}
+
+#signin-h1 {
+	font-weight: 600;
+	margin-bottom: 40px;
+	margin-top: 15px;
+	text-align: center;
+}
+
+.form-label {
+	font-weight: 400;
+	margin-bottom: 6px;
+}
+
+.form-field-control {
+	margin-bottom: 13px;
+	border-radius: 20px;
+}
+
+.form-btn {
+	margin-top: 30px;
+	width: 100%;
+	border-radius: 20px;
+}
+
+.form-container {
+	width: 400px;
+}
+
+#register-text {
+	border-top: 1px solid black;
+	padding-top: 5px;
+	text-align: center;
+}
+
+.login-register-footer {
+	margin-top: 80px;
+	font-size: smaller;
+}
+
+.login-register-footer a {
+	font-size: small;
+	color: black;
+}
+
+#register-form input[type="password"] {
+	margin-bottom: 0 !important;
+}
+
+#navbar-pic {
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+}
+
+/* Flash messages styles */
+/* ********************************************************************* */
+
+div .flash-message {
+	margin-left: 22px;
+}
+
+/* Profile page styles */
+/* ********************************************************************* */
+
+#profile-pic {
+	width: 200px;
+	height: 200px;
+	border-radius: 100px;
+	padding: 20px;
+}
+
+#profile-header {
+	display: flex;
+}
+
+/* My Books page styles */
+/* ********************************************************************* */
+
+#columnContainer {
+	display: flex;
+}
+
+#leftCol {
+	width: 200px;
+	margin: 40px 20px 20px 40px;
+}
+
+#leftCol nav {
+	width: 200px;
+}
+
+#rightCol {
+	width: 80%;
+}
+
+.list-group-item {
+	position: relative;
+	padding-right: 40px;
+}
+
+.delete-btn {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-size: 15px;
+	font-weight: bolder;
+	color: grey;
+	cursor: pointer;
+	border: none;
+	background-color: white;
+}
+
+.delete-btn:hover {
+	color: #ff0000;
+}
+
+.mybooks-li-container {
+	border-bottom: 1px solid rgb(158, 157, 157);
+}
+
+/* Book Review page styles */
+/* ********************************************************************* */
+
+.review-cover {
+	width: 200px;
+	height: 300px;
+}
+
+.star-rating {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+.star-rating input {
+	display: none;
+}
+.star-rating label {
+	font-size: 2rem;
+	color: lightgray;
+	cursor: pointer;
+	transition: color 0.2s;
+}
+.star-rating input:checked ~ label,
+.star-rating input:hover ~ label {
+	color: gold;
+}

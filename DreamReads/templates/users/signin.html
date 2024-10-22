@@ -1,0 +1,41 @@
+{% extends '/users/base-credentials.html' %}
+
+{% block title %}
+GoodReads | SignIn
+{% endblock %}
+
+{% block content %}
+<h1 class="merriweather" id="signin-h1">Sign in</h1>
+
+<form method="POST" id="signin-form" class="Roboto">
+    {{ form.hidden_tag() }}
+    
+    {% for field in form if field.widget.input_type != 'hidden' %}
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control form-field-control") }}
+        
+        {% for error in field.errors %}
+            <small class="text-danger">{{ error }}</small><br />
+        {% endfor %}
+    {% endfor %}
+    
+    <button class="btn btn-dark form-btn">Sign in</button>
+</form>
+
+<p class="mt-4 mb-5">
+    <small>By signing in, you agree to the DreamReads Terms of Service and Privacy Policy.</small>
+</p>
+
+<p id="register-text">New to DreamReads?</p>
+<a href="{{ url_for('register') }}" class="btn btn-outline-dark form-btn mt-2">Sign up</a>
+
+<div class="container text-center login-register-footer">
+    <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Terms of Service</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+    </ul>
+    <p>&copy; 2024 DreamReads, Inc</p>
+</div>
+
+{% endblock %}

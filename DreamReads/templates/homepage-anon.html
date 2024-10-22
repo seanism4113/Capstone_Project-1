@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+DreamReads | Home
+{% endblock %}
+
+{% block content %}
+{% include '/searches/searchbar-books.html' %}
+
+<div id="anon-div">
+    <div id="welcome-container" class="container">
+        <section>
+            <img class="books-img" src="/static/images/books.webp" alt="Books Image" />
+        </section>
+
+        <section id="welcome-section">
+            <div>
+                <h3>Deciding what to read next?</h3>
+                <p>
+                    You’re in the right place. Tell us what titles or genres you’ve enjoyed in the past,
+                    and we’ll give you surprisingly insightful recommendations.
+                </p>
+
+                <h3>Our Lists</h3>
+                <p>
+                    Let us help you keep track of your books. We have lists for books you have read,
+                    are currently reading, and books on your wishlist!
+                </p>
+
+                <h3>Book Reviews</h3>
+                <p>Leave a review and overall rating on books you have read.</p>
+            </div>
+
+            <div id="quotes-section">
+                <h3>Quotes</h3>
+
+                <div>
+                    <p>
+                        "Don’t walk in front of me… I may not follow. Don’t walk behind me… I may not lead.
+                        Walk beside me… just be my friend."
+                    </p>
+                    <span>― Albert Camus</span>
+                </div>
+
+                <div>
+                    <p>“If you tell the truth, you don't have to remember anything.”</p>
+                    <span>― Mark Twain</span>
+                </div>
+
+                <div>
+                    <p>
+                        "Friendship... is born at the moment when one man says to another: 'What! You too?
+                        I thought that no one but myself...'"
+                    </p>
+                    <span>― C.S. Lewis, *The Four Loves*</span>
+                </div>
+
+                <div>
+                    <p>
+                        “I've learned that people will forget what you said, people will forget what you did,
+                        but people will never forget how you made them feel.”
+                    </p>
+                    <span>― Maya Angelou</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Login and Sign-Up Card -->
+<div id="login-card-wrapper">
+    <div id="login-card" class="card">
+        <div class="card-header">Discover & read more!</div>
+
+        <div class="card-body">
+            <p>Get access to tracking, rating, and reviewing your favorite books.</p>
+            <a id="signup-btn" href="{{ url_for('register') }}" class="btn btn-lg btn-primary">Sign up with email</a>
+            <small class="card-text">
+                By creating an account, you agree to the DreamReads Terms of Service and Privacy Policy.
+            </small>
+        </div>
+
+        <span id="break"></span>
+
+        <div class="card-footer">
+            <p class="mt-2">Already a member? <a href="{{ url_for('signin') }}">Sign in</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

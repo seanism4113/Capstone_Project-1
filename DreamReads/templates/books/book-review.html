@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	GoodReads | Book Review
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-3">
+	<div class="container-fluid col-md-8">
+		<li class="list-group-item position-relative border-0">
+			<div class="cover-div">
+				<img class="cover-img" src="{{ book.cover_image }}" />
+			</div>
+			<div>
+				<h1 class="Roboto">{{ book.title }}</h1>
+				<span class="ms-2"><i>by {{ book.authors }}</i></span>
+			</div>
+		</li>
+	</div>
+</div>
+
+<div class="container">
+	<div class="container-fluid col-md-8">
+		<p>{{ book.description }}</p>
+	</div>
+</div>
+
+<div class="container mt-5">
+	<div class="container-fluid col-md-8">
+		<form 
+			method="POST" 
+			action="{{ url_for('review_book', book_id=book.id) }}" 
+			id="review-form" 
+			class="Roboto"
+		>
+			{{ form.hidden_tag() }}
+
+			<div class="star-rating">
+				{% for i in range(5, 0, -1) %}
+					<input 
+						type="radio" 
+						id="star{{ i }}" 
+						name="rating" 
+						value="{{ i }}" 
+						{% if form.rating.data == i %} checked {% endif %}
+						onchange="document.getElementById('rating').value = this.value;" 
+					/>
+					<label for="star{{ i }}" class="fas fa-star"></label>
+				{% endfor %}
+			</div>
+
+			<input 
+				type="hidden" 
+				id="rating" 
+				name="rating" 
+				value="{{ form.rating.data or '' }}" 
+			/>
+
+			<p class="mb-1 Roboto mt-5">What did you think?</p>
+			{{ form.review(class="form-control", rows=8) }}
+
+			{% if form.review.errors %}
+				<small class="text-danger">{{ form.review.errors[0] }}</small><br />
+			{% endif %}
+
+			<button type="submit" class="btn btn-primary mt-3">
+				{% if review %} Edit Review {% else %} Submit Review {% endif %}
+			</button>
+		</form>
+		{% if review %}
+		<div class="text-center mt-5">
+			<form method="POST" action="{{ url_for('delete_review', book_id=book.id) }}">
+				<button type="submit" class="btn btn-outline-danger mt-2">Remove Review</button>
+			</form>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

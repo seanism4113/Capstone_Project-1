@@ -1,0 +1,17 @@
+<div class="searchbar">
+    <form action="{{ url_for('search_books') }}" method="get">
+        <div class="input-group">
+            <input 
+                name="q" 
+                type="text" 
+                class="form-control" 
+                placeholder="Search for Books" 
+                aria-label="Search for Books" 
+                required 
+            />
+            <button class="btn btn-success" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,14 @@
+# FLASK VIRTUAL ENVIRONMENT
+/venv
+
+# .DS STORE
+.DS_Store
+Step 1 & 2/.DS_Store
+DreamReads/.DS_Store
+DreamReads/static/.DS_Store
+
+# PYCACHE
+DreamReads/__pycache__
+
+# OS ENV 
+DreamReads/.env

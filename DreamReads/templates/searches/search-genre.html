@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    GoodReads | Explore Genres
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column">
+    {% include '/searches/searchbar-genre.html' %}
+    
+    <a class="switch-search" href="{{ url_for('search_books') }}">
+        Search by book
+    </a>
+</div>
+
+{% include '/searches/search-results.html' %}
+{% endblock %}
