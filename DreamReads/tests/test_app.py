@@ -5,8 +5,8 @@ os.environ['DATABASE_URL'] = 'postgresql:///reads_test_db'
 
 from app import app, db, User, Book, BookReview, BookList
 
-os.environ['SECRET_KEY'] = 'Dragon3847%^'
-os.environ['API_KEY'] = "AIzaSyAF9B6uDNOPoiz-EZrgvSVLbT8AQKW8i2U"
+os.environ['SECRET_KEY'] = os.getenv('SECRET_KEY')
+os.environ['API_KEY'] = os.getenv("API_KEY")
 app.config['WTF_CSRF_ENABLED'] = False
 
 
