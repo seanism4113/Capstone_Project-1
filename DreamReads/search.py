@@ -23,7 +23,7 @@ def sortSearchContent(results):
             'short_description': format_short_description(volume_info.get('description', 'Description not available')),
             'description' : volume_info.get('description', 'Description not available'),
             'cover_image' : format_cover_image(volume_info.get('imageLinks', {})),
-            'avg_rating' : volume_info.get('averageRating', '-'),
+            'avg_rating' : volume_info.get('averageRating', 0.0),
             'page_count' : volume_info.get('pageCount', '-'),
             'date_published' : volume_info.get('publishedDate', '-'),
             'publisher' : volume_info.get('publisher', '-'),

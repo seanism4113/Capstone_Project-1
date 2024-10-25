@@ -32,14 +32,14 @@ results_list = []
 @app.errorhandler(404)
 def page_not_found(e):
     """ Redirect to 404 page for all URLs that do not exist """
-    return render_template('404.html')
+    return render_template('404.html'), 404
 
 
 @app.before_request
 def add_user_to_stored():
     """ If logged in, add current user to Flask's global variable renamed stored """
 
-    stored.user = User.query.get(session[CURRENT_USER_KEY]) if CURRENT_USER_KEY in session else None
+    stored.user = User.query.filter_by(id=session.get(CURRENT_USER_KEY)).first() if CURRENT_USER_KEY in session else None
 
 @app.context_processor
 def inject_user():
@@ -126,7 +126,7 @@ def register():
             db.session.rollback()
             flash(f"An account already exists with the email address {form.email.data}", 'danger')
 
-        return render_template('users/register.html', form=form)
+    return render_template('users/register.html', form=form)
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -240,7 +240,7 @@ def add_book_to_list():
     list_index = int(request.form.get('index'))
     book_id = results_list[list_index]['id']
 
-    if Book.query.get(book_id):
+    if Book.query.filter_by(id=book_id).first():
         book_list_item = BookList.query.filter(BookList.book_id == book_id).first()
         book_list_item.list_name = list_choice
         db.session.commit()
@@ -282,7 +282,7 @@ def edit_book_list():
     list_choice = request.form.get('choice')
     list_index = request.form.get('index')
 
-    book_list_item = BookList.query.filter(BookList.book_id == list_index).first()
+    book_list_item = BookList.query.filter_by(book_id=list_index).first()
     book_list_item.list_name = list_choice
     db.session.commit()
     return redirect(request.referrer)
@@ -322,10 +322,10 @@ def show_mybooks():
 @signin_required
 def review_book(book_id):
     """ Displays route which allows user to leave a review and rating for a book """
-    book = Book.query.get_or_404(book_id)
+    book = Book.query.filter_by(id=book_id).first_or_404()
     form = BookReviewForm()
 
-    review = BookReview.query.filter_by(user_id = stored.user.id, book_id = book.id).first()
+    review = BookReview.query.filter_by(user_id=stored.user.id, book_id=book.id).first()
 
     form = BookReviewForm(obj=review)
 
@@ -355,7 +355,7 @@ def review_book(book_id):
 def delete_review(book_id):
     """ Allows user to delete a review """
 
-    review = BookReview.query.filter_by(user_id = stored.user.id, book_id = book_id).first()
+    review = BookReview.query.filter_by(user_id=stored.user.id, book_id=book_id).first()
     db.session.delete(review)
     db.session.commit()
     return redirect(url_for('show_mybooks'))

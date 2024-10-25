@@ -9,6 +9,8 @@ DreamReads/static/.DS_Store
 
 # PYCACHE
 DreamReads/__pycache__
+DreamReads/tests/__pycache__/__init__.cpython-312.pyc
+DreamReads/tests/__pycache__/test_app.cpython-312-pytest-8.3.3.pyc
 
 # OS ENV 
 DreamReads/.env

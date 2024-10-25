@@ -1,106 +1,82 @@
 <div class="container book-results-list">
-    <div class="container-fluid">
-        <p id="search-tag">
-            Showing results for: "<b>{{ search }}</b>"
-        </p>
-        <ul id="book-results-list" class="list-group">
-            {% for item in results_list %}
-            <li class="list-group-item">
-                <div class="cover-div">
-                    <img class="cover-img" src="{{ item['cover_image'] }}" />
-                </div>
-                <div class="book-info">
-                    <h5>{{ item['title'] }}</h5>
-                    <span>by {{ item['authors'] }}</span>
-                    {% if stored_user %}
-                    <form action="{{ url_for('add_book_to_list') }}" method="POST">
-                        {{ form.hidden_tag() }}
-                        <div class="dropdown">
-                            <button
-                                class="btn btn-sm dropdown-toggle mt-1 
-                                    {% if item['id'] in mybooks_list %}
-                                        {% if mybooks_list[item['id']] == 'Read' %} btn-secondary 
-                                        {% elif mybooks_list[item['id']] in ['Currently Reading', 'Want to Read'] %} btn-outline-success 
-                                        {% else %} btn-success 
-                                        {% endif %} 
-                                    {% else %} btn-success 
-                                    {% endif %}"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                {% if item['id'] in mybooks_list %}
-                                    {{ mybooks_list[item['id']] }}
-                                {% else %}
-                                    Add to my books
-                                {% endif %}
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for value, label in form.list_choice.choices %}
-                                <li>
-                                    <button type="submit" class="dropdown-item" name="choice" value="{{ value }}">
-                                        {{ label }}
-                                    </button>
-                                    <input type="hidden" name="index" value="{{ results_list.index(item) }}" />
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </form>
-                    {% endif %}
-                    <p class="mt-3">
-                        <small>
-                            {{ item['short_description'] }} 
-                            {% if item['description'] | length > 350 %}
-                            <span class="description-extend text-primary">...more</span>
-                            {% endif %}
-                        </small>
-                    </p>
-                    <div class="categories">
-                        <small>categories: {{ item['categories'] }}</small>
-                    </div>
-                </div>
-                <div class="book-info2">
-                    <div>
-                        <span>Page Count:</span>
-                        <span>{{ item['page_count'] }}</span>
-                    </div>
-                    <div>
-                        <span>Publisher:</span>
-                        <span>{{ item['publisher'] }}</span>
-                    </div>
-                    <div>
-                        <span>Publish Date:</span>
-                        <span>{{ item['date_published'] }}</span>
-                    </div>
-                    <div>
-                        <span>Avg. Rating:</span>
-                        <div class="d-flex">
-                            <div class="rating d-flex flex-row">
-                                {% if item['avg_rating'] != '-' %}
-                                    {% set rating = item['avg_rating'] %}
-                                    {% set full_stars = rating | int %}
-                                    {% set half_star = 1 if rating % 1 >= 0.5 else 0 %}
-                                    {% set empty_stars = 5 - full_stars - half_star %}
-                                    {% for i in range(full_stars) %}
-                                        <i class="fas fa-star"></i>
-                                    {% endfor %}
-                                    {% if half_star %}
-                                        <i class="fas fa-star-half-alt"></i>
-                                    {% endif %}
-                                    {% for i in range(empty_stars) %}
-                                        <i class="far fa-star"></i>
-                                    {% endfor %}
-                                {% endif %}
-                                <span class="ms-1">{{ item['avg_rating'] }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-        <p id="num-results">
-            showing <b>{{ results_list | length }}</b> results
-        </p>
-    </div>
+	<div class="container-fluid">
+		<p id="search-tag">Showing results for: "<b>{{ search }}</b>"</p>
+		<ul id="book-results-list" class="list-group">
+			{% for item in results_list %}
+			<li class="list-group-item">
+				<div class="cover-div">
+					<img class="cover-img" src="{{ item['cover_image'] }}" />
+				</div>
+				<div class="book-info">
+					<h5>{{ item['title'] }}</h5>
+					<span>by {{ item['authors'] }}</span>
+					{% if stored_user %}
+					<form action="{{ url_for('add_book_to_list') }}" method="POST">
+						{{ form.hidden_tag() }}
+						<div class="dropdown">
+							<button
+								class="btn btn-sm dropdown-toggle mt-1 {% if item['id'] in mybooks_list %} {% if mybooks_list[item['id']] == 'Read' %} btn-secondary {% elif mybooks_list[item['id']] in ['Currently Reading', 'Want to Read'] %} btn-outline-success {% else %} btn-success {% endif %} {% else %} btn-success {% endif %}"
+								type="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								{% if item['id'] in mybooks_list %} {{ mybooks_list[item['id']] }} {% else %} Add to my books {% endif %}
+							</button>
+							<ul class="dropdown-menu">
+								{% for value, label in form.list_choice.choices %}
+								<li>
+									<button type="submit" class="dropdown-item" name="choice" value="{{ value }}">{{ label }}</button>
+									<input type="hidden" name="index" value="{{ results_list.index(item) }}" />
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</form>
+					{% endif %}
+					<p class="mt-3">
+						<small>
+							{{ item['short_description'] }} {% if item['description'] | length > 350 %}
+							<span class="description-extend text-primary">...more</span>
+							{% endif %}
+						</small>
+					</p>
+					<div class="categories">
+						<small>categories: {{ item['categories'] }}</small>
+					</div>
+				</div>
+				<div class="book-info2">
+					<div>
+						<span>Page Count:</span>
+						<span>{{ item['page_count'] }}</span>
+					</div>
+					<div>
+						<span>Publisher:</span>
+						<span>{{ item['publisher'] }}</span>
+					</div>
+					<div>
+						<span>Publish Date:</span>
+						<span>{{ item['date_published'] }}</span>
+					</div>
+					<div>
+						<span>Avg. Rating:</span>
+						<div class="d-flex">
+							<div class="rating d-flex flex-row">
+								{% if item['avg_rating'] != '-' %} {% set rating = item['avg_rating'] %} {% set full_stars = rating | int %} {% set half_star = 1 if rating % 1 >= 0.5 else 0 %} {% set empty_stars = 5 - full_stars - half_star %} {% for i in
+								range(full_stars) %}
+								<i class="fas fa-star"></i>
+								{% endfor %} {% if half_star %}
+								<i class="fas fa-star-half-alt"></i>
+								{% endif %} {% for i in range(empty_stars) %}
+								<i class="far fa-star"></i>
+								{% endfor %} {% endif %}
+								<span class="ms-1">{{ item['avg_rating'] }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		<p id="num-results">showing <b>{{ results_list | length }}</b> results</p>
+	</div>
 </div>
