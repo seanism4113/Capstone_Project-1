@@ -14,7 +14,7 @@ load_dotenv()
 # Flask configurationx
 app = Flask(__name__)
 app.app_context().push()
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_URL')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 CURRENT_USER_KEY = "current_user"
 API_KEY = os.getenv("API_KEY")
