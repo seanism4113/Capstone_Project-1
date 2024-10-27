@@ -110,6 +110,7 @@ a {
 
 #nav2 {
 	justify-content: space-evenly;
+	padding: 0px;
 }
 
 /* SearchBar styles */
@@ -588,6 +589,11 @@ div .flash-message {
 	}
 	#site-logo {
 		font-size: 32px;
+	}
+
+	.second-nav {
+		width: 110px;
+		font-size: .9em;
 	}
 
 	/* Search and browse pages */
