@@ -277,7 +277,17 @@ footer .nav-link {
 
 .list-group {
 	border-radius: 0px;
-	width: 85%;
+}
+
+.search-li{
+	display: flex;
+    align-items: stretch;
+    padding: 1rem;
+}
+.book-info-container {
+	display: flex;
+	justify-content: space-between;
+	flex-grow: 1;
 }
 
 #search-tag {
@@ -295,9 +305,9 @@ footer .nav-link {
 }
 
 .book-info {
-	width: 60%;
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 }
 
 .book-info p {
@@ -312,12 +322,13 @@ footer .nav-link {
 
 .book-results-list {
 	margin-top: 30px;
+	padding: 0px;;
 }
 
 .book-info2 {
-	margin-left: 30px;
-	content: flex-end;
-	width: 20%;
+	margin-left: auto;
+	text-align: right;
+	padding-left: 10px;
 }
 
 .book-info h5 {
@@ -348,6 +359,10 @@ footer .nav-link {
 #num-results {
 	text-align: center;
 	margin-top: 10px;
+}
+
+.rating {
+	justify-content: flex-end;
 }
 
 .fa-star {
@@ -522,6 +537,9 @@ div .flash-message {
 	.books-img {
 		height: 150px;
 	}
+
+	/* Login & Register */
+	/* ******************************* */
 	#credentials-form {
 		width: 400px;
 	}
@@ -551,14 +569,6 @@ div .flash-message {
 	}
 }
 
-@media screen and (max-width: 350px) {
-	/* Homescreen and navbars */
-	/* ******************************* */
-	#signin-btn {
-		display: none;
-	}
-}
-
 @media screen and (max-width: 500px) {
 	/* Homescreen and navbars */
 	/* ******************************* */
@@ -577,7 +587,51 @@ div .flash-message {
 		padding-right: 0px;
 	}
 	#site-logo {
-		font-size: 36px;
+		font-size: 32px;
 	}
 
+	/* Search and browse pages */
+	/* ******************************* */
+	.book-info-container .book-info2 {
+		display: none;
+	}
+	.cover-img {
+		width: 70px;
+		height: 100px;
+		border: lightgrey 1px solid;
+	}
+	.book-info{
+		font-size: .9em;
+	}
+	.search-title{
+		font-size: 1.2em;
+	}
+}
+
+@media screen and (max-width: 770px) {
+	/* Search and browse pages */
+	/* ******************************* */
+	.book-info-container {
+		flex-direction: column;
+	}
+	.book-info2 {
+        margin-left: 0px;
+        margin-top: 10px;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        align-items: center;
+        gap: 10px;
+	}
+	.rating {
+		justify-content:flex-start;
+	}
+	.search-description {
+		display: none;
+	}
+	.info2-second {
+		margin-left: 10px;
+		justify-content: flex-end;
+	}
 }
