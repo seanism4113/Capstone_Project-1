@@ -33,7 +33,7 @@ a {
 	background-color: #f4f2e9;
 	align-content: center;
 	font-family: Roboto;
-	height: 68px;
+	height: 55px;
 	padding: 0px;
 }
 
@@ -58,7 +58,7 @@ a {
 #site-logo {
 	font-size: 2.7rem;
 	margin-bottom: 0px;
-	margin-left: 40px;
+	margin-left: 10px;
 	color: rgb(76, 44, 21);
 }
 
@@ -86,7 +86,7 @@ a {
 
 #nav-content ul:first-of-type {
 	align-items: center;
-	margin-right: 70px;
+	margin-right: 10px;
 }
 
 #nav-content2 {
@@ -116,7 +116,7 @@ a {
 /* ********************************************************************* */
 
 .searchbar {
-	margin: 0px 40px;
+	margin: 0px 10px;
 }
 
 .switch-search {
@@ -169,13 +169,12 @@ footer .nav-link {
 }
 
 #login-card-wrapper {
-	position: absolute;
+	margin-bottom: 0px;
+}
+
+#login-card-wrapper {
 	font-family: Roboto;
-	top: 150px;
-	right: 40px;
-	width: 280px;
 	text-align: center;
-	margin-top: 75px;
 }
 
 #login-card {
@@ -183,23 +182,31 @@ footer .nav-link {
 	top: 20px;
 	z-index: 10;
 	background-color: white;
+	border: none;
 }
 
 .card-header {
 	background-color: white;
 	border-bottom: none;
-	font-size: large;
+	font-size: 1.3em;
+	font-weight: bold;
+	padding-bottom: 0px;
 }
 
 .card-footer {
 	border-top: none;
 	background-color: white;
 	padding-bottom: 0px;
+	padding-top: 0px;
 }
 
-#signup-btn {
+.card-body {
+	padding: 0px;
+}
+
+.card #signup-btn {
 	width: 100%;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	border-radius: 3px;
 }
 
@@ -210,9 +217,10 @@ footer .nav-link {
 
 .books-img {
 	width: 100%;
-	height: 300px;
+	height: 100px;
 	border-radius: 5px;
 	object-fit: cover;
+	margin-bottom: 15px;
 }
 
 #break {
@@ -225,12 +233,16 @@ footer .nav-link {
 #welcome-section {
 	margin-top: 20px;
 	display: flex;
-	width: 90%;
+	width: 100%;
 }
 
-#welcome-section div {
-	margin-right: 40px;
+#welcome-section div:first-child {
+	margin-right: 10px;
 	padding-right: 10px;
+}
+
+#quotes-section {
+	margin-bottom: 20px;
 }
 
 #quotes-section div {
@@ -245,6 +257,10 @@ footer .nav-link {
 
 #quotes-section span {
 	font-weight: 500;
+}
+
+.q-author {
+	margin-bottom: 10px;
 }
 
 /* Search & Browse html page styles */
@@ -498,4 +514,57 @@ div .flash-message {
 .star-rating input:checked ~ label,
 .star-rating input:hover ~ label {
 	color: gold;
+}
+
+@media screen and (min-width: 500px) {
+	#login-card-wrapper {
+		display: none;
+	}
+	.books-img {
+		height: 150px;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.books-img {
+		height: 200px;
+	}
+}
+
+@media screen and (min-width: 900px) {
+	.books-img {
+		height: 250px;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.books-img {
+		height: 300px;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	#signin-btn {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	#join-btn {
+		display: none;
+	}
+	#home-container {
+		all: unset;
+	}
+
+	#welcome-section {
+		flex-direction: column;
+	}
+	#welcome-section div:first-child {
+		margin-right: 0px;
+		padding-right: 0px;
+	}
+	#site-logo {
+		font-size: 36px;
+	}
 }
