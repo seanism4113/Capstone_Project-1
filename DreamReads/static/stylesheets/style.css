@@ -392,10 +392,6 @@ footer .nav-link {
 	border-radius: 20px;
 }
 
-.form-container {
-	width: 400px;
-}
-
 #register-text {
 	border-top: 1px solid black;
 	padding-top: 5px;
@@ -410,6 +406,7 @@ footer .nav-link {
 .login-register-footer a {
 	font-size: small;
 	color: black;
+	padding: 0px;
 }
 
 #register-form input[type="password"] {
@@ -517,39 +514,54 @@ div .flash-message {
 }
 
 @media screen and (min-width: 500px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	#login-card-wrapper {
 		display: none;
 	}
 	.books-img {
 		height: 150px;
 	}
+	#credentials-form {
+		width: 400px;
+	}
 }
 
 @media screen and (min-width: 700px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	.books-img {
 		height: 200px;
 	}
 }
 
 @media screen and (min-width: 900px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	.books-img {
 		height: 250px;
 	}
 }
 
 @media screen and (min-width: 1200px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	.books-img {
 		height: 300px;
 	}
 }
 
 @media screen and (max-width: 350px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	#signin-btn {
 		display: none;
 	}
 }
 
 @media screen and (max-width: 500px) {
+	/* Homescreen and navbars */
+	/* ******************************* */
 	#join-btn {
 		display: none;
 	}
@@ -567,4 +579,5 @@ div .flash-message {
 	#site-logo {
 		font-size: 36px;
 	}
+
 }
