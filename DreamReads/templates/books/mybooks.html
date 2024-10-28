@@ -1,135 +1,109 @@
-{% extends 'base.html' %}
-
-{% block title %}
-    GoodReads | Explore Books
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} GoodReads | Explore Books {% endblock %} {% block content %}
 
 <!-- Container for the left column and main content -->
-<div id="columnContainer">
+<div id="columnContainer" class="container">
+	<!-- Left Column Navbar -->
+	<div id="leftCol">
+		<nav id="mybooks-nav" class="">
+			<h5 class="mb-2">Bookshelves</h5>
+			<ul class="navbar-nav flex-column">
+				<li>
+					<a class="nav-item" href="{{ url_for('show_mybooks', shelf='All') }}"> All <span>({{ list_length['all'] }})</span></a>
+				</li>
+				<li>
+					<a class="nav-item" href="{{ url_for('show_mybooks', shelf='Read') }}"> Read <span>({{ list_length['read'] }})</span> </a>
+				</li>
+				<li>
+					<a class="nav-item" href="{{ url_for('show_mybooks', shelf='Currently Reading') }}"> Currently Reading <span> ({{ list_length['current-read'] }})</span> </a>
+				</li>
+				<li>
+					<a class="nav-item" href="{{ url_for('show_mybooks', shelf='Want to Read') }}"> Want to Read <span>({{ list_length['to-read'] }})</span> </a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 
-    <!-- Left Column Navbar -->
-    <div id="leftCol" class="container">
-        <nav class="navbar-expand">
-            <h5 class="mb-2">Bookshelves</h5>
-            <ul class="navbar-nav flex-column">
-                <li>
-                    <a class="nav-item" href="{{ url_for('show_mybooks', shelf='All') }}">
-                        All ({{ list_length['all'] }})
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-item" href="{{ url_for('show_mybooks', shelf='Read') }}">
-                        Read ({{ list_length['read'] }})
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-item" href="{{ url_for('show_mybooks', shelf='Currently Reading') }}">
-                        Currently Reading ({{ list_length['current-read'] }})
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-item" href="{{ url_for('show_mybooks', shelf='Want to Read') }}">
-                        Want to Read ({{ list_length['to-read'] }})
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+	<!-- Main Content -->
+	<div id="rightCol">
+		<div id="myBooks-section">
+			<ul class="list-group">
+				{% for book, list_name, date_added in user_books %}
+				<div class="mybooks-li-container">
+					<li id="mybooks-li" class="list-group-item mybooks-li">
+						<div class="cover-div">
+							<img class="cover-img" src="{{ book.cover_image }}" alt="Cover image of {{ book.title }}" />
+						</div>
+						<div>
+							<div class="mybooks-info-section">
+								<div>
+									<h5>{{ book.title }}</h5>
+									<span>by {{ book.authors }}</span>
 
-    <!-- Main Content -->
-    <div id="rightCol">
-        <div class="container ms-5 mt-5">
-            <ul class="list-group">
+									{% if shelf != 'All' %}
+									<form action="{{ url_for('edit_book_list') }}" method="POST">
+										{{ form.hidden_tag() }}
+										<div class="dropdown">
+											<button class="btn btn-sm dropdown-toggle mt-1 {% if list_name == 'Read' %} btn-secondary {% else %} btn-outline-success {% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ list_name }}</button>
+											<ul class="dropdown-menu">
+												{% for value, label in form.list_choice.choices %}
+												<li>
+													<button type="submit" class="dropdown-item" name="choice" value="{{ value }}">{{ label }}</button>
+													<input type="hidden" name="index" value="{{ book.id }}" />
+												</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</form>
+									{% endif %} {% if shelf == 'All' %}
+									<p>
+										shelves:
+										<a href="{{ url_for('show_mybooks', shelf=list_name) }}">{{ list_name }}</a>
+									</p>
+									{% endif %}
 
-                {% for book, list_name, date_added in user_books %}
-                <div class="mybooks-li-container">
-                    <li class="list-group-item position-relative border-0 pb-2">
-                        <div class="cover-div">
-                            <img class="cover-img" src="{{ book.cover_image }}" alt="Cover image of {{ book.title }}" />
-                        </div>
-                        <div class="book-info">
-                            <h5>{{ book.title }}</h5>
-                            <span>by {{ book.authors }}</span>
+									<p>Date Added: {{ date_added.strftime('%b %d, %Y') }}</p>
+								</div>
 
-                            {% if not shelf == 'All' %}
-                            <form action="{{ url_for('edit_book_list') }}" method="POST">
-                                {{ form.hidden_tag() }}
-                                <div class="dropdown">
-                                    <button class="btn btn-sm dropdown-toggle mt-1 {% if list_name == 'Read' %} btn-secondary {% else %} btn-outline-success {% endif %}"
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{ list_name }}
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        {% for value, label in form.list_choice.choices %}
-                                        <li>
-                                            <button type="submit" class="dropdown-item" name="choice" value="{{ value }}">
-                                                {{ label }}
-                                            </button>
-                                            <input type="hidden" name="index" value="{{ book.id }}" />
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </form>
-                            {% endif %}
-
-                            {% if shelf == 'All' %}
-                            <p>shelves: <a href="{{ url_for('show_mybooks', shelf=list_name) }}">{{ list_name }}</a></p>
-                            {% endif %}
-                            
-                            <p>Date Added: {{ date_added.strftime('%b %d, %Y') }}</p>
-                        </div>
-
-                        <div class="mt-4">
-                            <span><b>Avg. rating:</b> {{ book.avg_rating }}</span><br />
-                            {% if not book.reviews %}
-                            <a href="{{ url_for('review_book', book_id=book.id) }}">Leave a review</a>
-                            {% endif %}
-                        </div>
-
-                        <form action="{{ url_for('remove_book_list') }}" method="POST">
-                            <button type="submit" class="delete-btn" title="Remove from mybooks">
-                                <i class="fa-solid fa-x"></i>
-                            </button>
-                            <input type="hidden" name="index" value="{{ book.id }}" />
-                        </form>
-                    </li>
-
-                    <div class="ms-5">
-                        {% if book.reviews %}
-                        {% for review in book.reviews %}
-                        <div class="mb-2">
-                            <h6 class="Roboto d-inline">Review</h6>
-                            <small>
-                                <a href="{{ url_for('review_book', book_id=book.id) }}">(edit)</a>
-                            </small>
-                        </div>
-                        <div>
-                            <div class="d-flex">
-                                <div class="rating d-flex flex-row mb-1">
-                                    {% set rating = review.rating %}
-                                    {% set full_stars = rating | int %}
-                                    {% set empty_stars = 5 - full_stars %}
-                                    {% for i in range(full_stars) %}
-                                    <i class="fas fa-star"></i>
-                                    {% endfor %}
-                                    {% for i in range(empty_stars) %}
-                                    <i class="far fa-star"></i>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        <p>{{ review.review }}</p>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+								<div class="avg-rating-div">
+									<span id="avg-rating-span"><b>Avg. rating:</b> {{ book.avg_rating }}</span><br />
+									{% if not book.reviews %}
+									<a href="{{ url_for('review_book', book_id=book.id) }}">Leave a review</a>
+									{% endif %}
+								</div>
+							</div>
+							<form action="{{ url_for('remove_book_list') }}" method="POST">
+								<button type="submit" class="delete-btn" title="Remove from mybooks">
+									<i class="fa-solid fa-x"></i>
+								</button>
+								<input type="hidden" name="index" value="{{ book.id }}" />
+							</form>
+						</div>
+					</li>
+					<div>
+						{% if book.reviews %} {% for review in book.reviews %}
+						<div class="mb-2">
+							<h6 class="Roboto d-inline">Review</h6>
+							<small>
+								<a href="{{ url_for('review_book', book_id=book.id) }}">(edit)</a>
+							</small>
+						</div>
+						<div class="d-flex">
+							<div class="rating d-flex flex-row mb-1">
+								{% set rating = review.rating %} {% set full_stars = rating | int %} {% set empty_stars = 5 - full_stars %} {% for i in range(full_stars) %}
+								<i class="fas fa-star"></i>
+								{% endfor %} {% for i in range(empty_stars) %}
+								<i class="far fa-star"></i>
+								{% endfor %}
+							</div>
+						</div>
+						<p>{{ review.review }}</p>
+						{% endfor %} {% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
