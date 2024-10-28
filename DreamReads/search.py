@@ -1,21 +1,26 @@
 def format_authors(authors):
-    return ' | '.join(authors) if authors else 'Authors not found'
+    """ Format the list of authors returned by Google API into single string with seperator | """
+    return ' | '.join(authors) if authors else 'Authors not found' # Return authors or message if not found
 
 def format_categories(categories):
-        return ' | '.join(categories) if categories else '-'
+    """ Format the list of categories returned by Google API into single string with seperator | """
+    return ' | '.join(categories) if categories else '-' # Return categories or a '-' if not found
 
 def format_short_description(description):
-     return description[:350] if len(description) > 350 else description
+    """ Take long description from Google API and trim it to a max of 350 characters """
+    return description[:350] if len(description) > 350 else description #Return the shortened description of the original if it is less that 350 chars
 
 def format_cover_image(imageLinks):
-     no_cover_image = '/static/images/cover-not-availble-image.jpg'
+     """ Get the cover image thumbnail or return a placeholder if thumbnail does not exist """
+     no_cover_image = '/static/images/cover-not-availble-image.jpg'  # placeholder image
      return imageLinks.get('thumbnail', no_cover_image) if imageLinks else no_cover_image
 
 def sortSearchContent(results):
-    results_list = []
+    results_list = []  # initialize array to hold results of API results
 
+    # Iterate through each item in the results.  Get the needed information from the volumeInfo or return a placeholder if the data is missing.
     for item in results:
-        volume_info = item.get('volumeInfo', {})
+        volume_info = item.get('volumeInfo', {}) # Extract the volume information or empty dictionary if not found
         results_list.append({
              'id' : item.get('id'),
             'title' : volume_info.get('title', 'Title not available'),

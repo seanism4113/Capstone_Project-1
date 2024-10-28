@@ -12,15 +12,18 @@
 
 			<div class="card-body">
 				<p>Get access to tracking, rating, and reviewing your favorite books.</p>
+				<!-- Link to register form -->
 				<a id="signup-btn" href="{{ url_for('register') }}" class="btn btn-lg btn-success">Sign up with email</a>
 				<small class="card-text"> By creating an account, you agree to the DreamReads Terms of Service and Privacy Policy. </small>
 			</div>
 			<div class="card-footer">
+				<!-- Link to signup form -->
 				<p class="mt-2">Already a member? <a href="{{ url_for('signin') }}">Sign in</a></p>
 			</div>
 		</div>
 	</div>
 
+	<!-- Inlcude the searchbar for books -->
 	{% include '/searches/searchbar-books.html' %}
 
 	<div id="anon-div">

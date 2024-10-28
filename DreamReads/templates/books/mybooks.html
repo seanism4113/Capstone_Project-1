@@ -2,11 +2,12 @@
 
 <!-- Container for the left column and main content -->
 <div id="columnContainer" class="container">
-	<!-- Left Column Navbar -->
+	<!-- Left Column Navbar for the Shelves -->
 	<div id="leftCol">
 		<nav id="mybooks-nav" class="">
 			<h5 class="mb-2">Bookshelves</h5>
 			<ul class="navbar-nav flex-column">
+				<!-- Links to the different shelves with count of books on the shelf -->
 				<li>
 					<a class="nav-item" href="{{ url_for('show_mybooks', shelf='All') }}"> All <span>({{ list_length['all'] }})</span></a>
 				</li>
@@ -23,54 +24,66 @@
 		</nav>
 	</div>
 
-	<!-- Main Content -->
+	<!-- Main Content area with book information -->
 	<div id="rightCol">
 		<div id="myBooks-section">
 			<ul class="list-group">
+				<!-- Loop though the user's books -->
 				{% for book, list_name, date_added in user_books %}
 				<div class="mybooks-li-container">
 					<li id="mybooks-li" class="list-group-item mybooks-li">
 						<div class="cover-div">
+							<!-- Book cover image -->
 							<img class="cover-img" src="{{ book.cover_image }}" alt="Cover image of {{ book.title }}" />
 						</div>
 						<div>
 							<div class="mybooks-info-section">
 								<div>
+									<!-- Book title and authors -->
 									<h5>{{ book.title }}</h5>
 									<span>by {{ book.authors }}</span>
 
 									{% if shelf != 'All' %}
+									<!-- Form to edit the shelf -->
 									<form action="{{ url_for('edit_book_list') }}" method="POST">
 										{{ form.hidden_tag() }}
 										<div class="dropdown">
+											<!-- Dropdown for selecting shelves -->
 											<button class="btn btn-sm dropdown-toggle mt-1 {% if list_name == 'Read' %} btn-secondary {% else %} btn-outline-success {% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ list_name }}</button>
 											<ul class="dropdown-menu">
 												{% for value, label in form.list_choice.choices %}
 												<li>
 													<button type="submit" class="dropdown-item" name="choice" value="{{ value }}">{{ label }}</button>
+													<!-- Hidden input to identify the book being edited -->
 													<input type="hidden" name="index" value="{{ book.id }}" />
 												</li>
 												{% endfor %}
 											</ul>
 										</div>
 									</form>
-									{% endif %} {% if shelf == 'All' %}
+									{% endif %} 
+									
+									<!-- Display All books shelf -->
+									{% if shelf == 'All' %}
 									<p>
 										<span>shelves:</span> 
 										<a href="{{ url_for('show_mybooks', shelf=list_name) }}" class="shelf-link">{{ list_name }}</a>
 									</p>
 									{% endif %}
-
+									<!-- Date the book was added to shelf -->
 									<p>Date Added: {{ date_added.strftime('%b %d, %Y') }}</p>
 								</div>
 
 								<div class="avg-rating-div">
+									<!-- Display the Average rating -->
 									<span id="avg-rating-span"><b>Avg. rating:</b> {{ book.avg_rating }}</span><br />
 									{% if not book.reviews %}
+									<!-- Link to leave a review if one has not already been made -->
 									<a href="{{ url_for('review_book', book_id=book.id) }}">Leave a review</a>
 									{% endif %}
 								</div>
 							</div>
+							<!-- Form to remove a book from the user's list -->
 							<form action="{{ url_for('remove_book_list') }}" method="POST">
 								<button type="submit" class="delete-btn" title="Remove from mybooks">
 									<i class="fa-solid fa-x"></i>
@@ -80,7 +93,9 @@
 						</div>
 					</li>
 					<div>
-						{% if book.reviews %} {% for review in book.reviews %}
+						<!-- Display the book reviews if the exist -->
+						{% if book.reviews %} 
+						{% for review in book.reviews %}
 						<div class="mb-2">
 							<h6 class="Roboto d-inline">Review</h6>
 							<small>
@@ -89,6 +104,7 @@
 						</div>
 						<div class="d-flex">
 							<div class="rating d-flex flex-row mb-1">
+								<!-- Display the rating for the book -->
 								{% set rating = review.rating %} {% set full_stars = rating | int %} {% set empty_stars = 5 - full_stars %} {% for i in range(full_stars) %}
 								<i class="fas fa-star"></i>
 								{% endfor %} {% for i in range(empty_stars) %}
@@ -96,6 +112,7 @@
 								{% endfor %}
 							</div>
 						</div>
+						<!-- Display the book review -->
 						<p>{{ review.review }}</p>
 						{% endfor %} {% endif %}
 					</div>

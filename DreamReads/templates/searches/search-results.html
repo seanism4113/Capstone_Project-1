@@ -1,28 +1,38 @@
+<!-- Container for the book results list -->
 <div class="container book-results-list">
 	<div class="container-fluid">
 		<p id="search-tag">Showing results for: "<b>{{ search }}</b>"</p>
 		<ul id="book-results-list" class="list-group">
+			<!-- Loop through each item in the results list -->
 			{% for item in results_list %}
 			<li class="list-group-item search-li">
 				<div class="cover-div">
+					<!-- Display book cover image -->
 					<img class="cover-img" src="{{ item['cover_image'] }}" />
 				</div>
 				<div class="book-info-container">
 					<div class="book-info">
+						<!-- Display Book title -->
 						<h5 class="search-title">{{ item['title'] }}</h5>
+						<!-- Display Book authors -->
 						<span>by {{ item['authors'] }}</span>
+						<!-- If the user if logged in, show the button/form for adding book to list -->
 						{% if stored_user %}
+						<!-- Form for adding a book to user's book list -->
 						<form action="{{ url_for('add_book_to_list') }}" method="POST">
 							{{ form.hidden_tag() }}
 							<div class="dropdown">
+								<!-- Add logic to class to change appearance of form based on selection -->
 								<button
 									class="btn btn-sm dropdown-toggle mt-1 {% if item['id'] in mybooks_list %} {% if mybooks_list[item['id']] == 'Read' %} btn-secondary {% elif mybooks_list[item['id']] in ['Currently Reading', 'Want to Read'] %} btn-outline-success {% else %} btn-success {% endif %} {% else %} btn-success {% endif %}"
 									type="button"
 									data-bs-toggle="dropdown"
 									aria-expanded="false"
 								>
+									<!-- Logic to change the text of the dropdown based on selection -->
 									{% if item['id'] in mybooks_list %} {{ mybooks_list[item['id']] }} {% else %} Add to my books {% endif %}
 								</button>
+								<!-- Dropdown menu for list options -->
 								<ul class="dropdown-menu">
 									{% for value, label in form.list_choice.choices %}
 									<li>
@@ -36,11 +46,13 @@
 						{% endif %}
 						<p class="mt-3 search-description">
 							<small>
+								<!-- Display Short Description of the book -->
 								{{ item['short_description'] }} {% if item['description'] | length > 350 %}
 								<span class="description-extend text-primary">...more</span>
 								{% endif %}
 							</small>
 						</p>
+						<!-- Display book categories -->
 						<div class="categories">
 							<small>categories: {{ item['categories'] }}</small>
 						</div>
@@ -50,21 +62,25 @@
 						<div class="info2-first">
 							<div>
 								<span>Page Count:</span>
+								<!-- Display Book page count -->
 								<span>{{ item['page_count'] }}</span>
 							</div>
 							<div>
 								<span>Publisher:</span>
+								<!-- Display Book Publisher -->
 								<span>{{ item['publisher'] }}</span>
 							</div>
 						</div>
 						<div class="info2-second">
 							<div>
 								<span>Publish Date:</span>
+								<!-- Display date book was published -->
 								<span>{{ item['date_published'] }}</span>
 							</div>
 							<div>
 								<span>Avg. Rating:</span>
 								<div class="d-flex">
+									<!-- Display the average rating for the book with stars -->
 									<div class="rating d-flex flex-row">
 										{% if item['avg_rating'] != '-' %} {% set rating = item['avg_rating'] %} {% set full_stars = rating | int %} {% set half_star = 1 if rating % 1 >= 0.5 else 0 %} {% set empty_stars = 5 - full_stars - half_star %} {% for i in
 										range(full_stars) %}
@@ -84,6 +100,7 @@
 			</li>
 			{% endfor %}
 		</ul>
+		<!-- Display the number of results found -->
 		<p id="num-results">showing <b>{{ results_list | length }}</b> results</p>
 	</div>
 </div>

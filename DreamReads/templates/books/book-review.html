@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<!-- Container to hold the books: cover image, title, and authors -->
 <div class="container mt-3">
 	<div class="container-fluid col-md-8">
 		<li class="list-group-item position-relative border-0">
@@ -20,12 +21,14 @@
 	</div>
 </div>
 
+<!-- Container for book description -->
 <div class="container">
 	<div class="container-fluid col-md-8">
 		<p>{{ book.description }}</p>
 	</div>
 </div>
 
+<!-- Container for the Book review and rating -->
 <div class="container mt-5">
 	<div class="container-fluid col-md-8">
 		<form 
@@ -33,9 +36,11 @@
 			action="{{ url_for('review_book', book_id=book.id) }}" 
 			id="review-form" 
 			class="Roboto"
-		>
+		>	
+			<!-- CSRF protection token -->
 			{{ form.hidden_tag() }}
 
+			<!-- Star rating -->
 			<div class="star-rating">
 				{% for i in range(5, 0, -1) %}
 					<input 
@@ -50,6 +55,7 @@
 				{% endfor %}
 			</div>
 
+			<!-- Hidden input for selected rating -->
 			<input 
 				type="hidden" 
 				id="rating" 
@@ -57,9 +63,11 @@
 				value="{{ form.rating.data or '' }}" 
 			/>
 
+			<!-- Book review area -->
 			<p class="mb-1 Roboto mt-5">What did you think?</p>
 			{{ form.review(class="form-control", rows=8) }}
 
+			<!-- Form errors handler -->
 			{% if form.review.errors %}
 				<small class="text-danger">{{ form.review.errors[0] }}</small><br />
 			{% endif %}
@@ -68,6 +76,8 @@
 				{% if review %} Edit Review {% else %} Submit Review {% endif %}
 			</button>
 		</form>
+
+		<!-- If a review exists, show a delete review button -->
 		{% if review %}
 		<div class="text-center mt-5">
 			<form method="POST" action="{{ url_for('delete_review', book_id=book.id) }}">

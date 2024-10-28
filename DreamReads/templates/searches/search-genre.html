@@ -6,12 +6,14 @@
 
 {% block content %}
 <div class="d-flex flex-column">
+        <!-- Include genre search bar -->
     {% include '/searches/searchbar-genre.html' %}
-    
+        <!-- Link to search by book -->
     <a class="switch-search" href="{{ url_for('search_books') }}">
         Search by book
     </a>
 </div>
 
+<!-- Include the search results section to display the results retuned from query -->
 {% include '/searches/search-results.html' %}
 {% endblock %}

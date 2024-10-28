@@ -5,17 +5,20 @@ from flask import Flask, render_template, request, flash, redirect, session, url
 from models import connect_db, db, User, Book, BookList, BookReview
 from forms import JoinForm, SignInForm, ProfileForm, AddBooktoListForm, BookReviewForm
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import desc
 import requests
 from search import sortSearchContent
 
-# load variables from environment
+# Load environmnt variables from the .env file
 load_dotenv()
 
-# Flask configurationx
+# Flask configuration and initialization
 app = Flask(__name__)
 app.app_context().push()
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_URL')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+# Setup contstant variables
 CURRENT_USER_KEY = "current_user"
 API_KEY = os.getenv("API_KEY")
 baseUrl = "https://www.googleapis.com/books/v1/volumes"
@@ -56,7 +59,7 @@ def process_signout():
     if CURRENT_USER_KEY in session:
         del session[CURRENT_USER_KEY]
 
-
+# Decorator: Restrict access to routes that require authentication
 def signin_required(func):
     """ Decorator to require the user to be logged in """
     @wraps(func)
@@ -67,7 +70,7 @@ def signin_required(func):
         return func(*args, **kwargs)
     return wrapper
 
-
+# Decorator: Block access to routes that require the user to be logged out
 def signout_required(func):
     """ Decorator to require the user to be logged out """
     @wraps(func)
@@ -80,7 +83,14 @@ def signout_required(func):
 
 
 def get_books(query, max_results=40):
-    """ Queries the API for books.  The API has a max results query of 40 so that is what it is set to """
+    """Search for books using the Google Books API.
+    
+    Arguments:
+        query (str): Search term.
+        max_results (int): Maximum number of results to return (API limit is 40).
+    Returns:
+        list: List of books matching the query.
+    """
     try:
         response = requests.get(f"{baseUrl}?q={query}&maxResults={max_results}&key={API_KEY}")
         return response.json().get("items", [])
@@ -236,17 +246,19 @@ def add_book_to_list():
     global results_list
     form = AddBooktoListForm()
 
+    # Retrieve the list selected and the book index from the form
     list_choice = request.form.get('choice')
     list_index = int(request.form.get('index'))
     book_id = results_list[list_index]['id']
 
+    # Check if the book already exists in the data base
     if Book.query.filter_by(id=book_id).first():
         book_list_item = BookList.query.filter(BookList.book_id == book_id).first()
         book_list_item.list_name = list_choice
         db.session.commit()
         return redirect(request.referrer)
 
-    
+    # Create a new book entry
     book = Book(    
         id = results_list[list_index]['id'],
         title = results_list[list_index]['title'],
@@ -263,6 +275,7 @@ def add_book_to_list():
     db.session.add(book)
     db.session.commit()
 
+    # Add the book and selected list to the user's BookList
     book_list = BookList(
         book_id = book.id,
         user_id = stored.user.id,
@@ -279,6 +292,8 @@ def add_book_to_list():
 def edit_book_list():
     """ Route for user to edit which list a book is on"""
     form = AddBooktoListForm()
+
+    # Retrieve the list selected and the book index from the form
     list_choice = request.form.get('choice')
     list_index = request.form.get('index')
 
@@ -306,9 +321,15 @@ def remove_book_list():
 def show_mybooks():
     """ Displays the page for the user's Books which has it broken down by lists """
     form = AddBooktoListForm()
+
+    # Fetche the shelf query parameter. If it not provided, it defaults to 'All'.
     shelf = request.args.get('shelf', 'All').strip()
-    books_query = db.session.query(Book, BookList.list_name, BookList.date_added).join(BookList).filter(BookList.user_id == stored.user.id)
+
+    # Query will retrieve books associated with the stored user, and order them by date_added.
+    books_query = db.session.query(Book, BookList.list_name, BookList.date_added).join(BookList).filter(BookList.user_id == stored.user.id).order_by(desc(BookList.date_added))
     user_books = books_query.all() if shelf == 'All' else books_query.filter(BookList.list_name == shelf). all()
+    
+    # Calculate the length of lists
     list_length = {'all': len(books_query.all()),
                    'read': len(books_query.filter(BookList.list_name == 'Read').all()),
                     'current-read' : len(books_query.filter(BookList.list_name == 'Currently Reading').all()),
@@ -330,6 +351,7 @@ def review_book(book_id):
     form = BookReviewForm(obj=review)
 
     if form.validate_on_submit():
+        # Determine if a review already exists
         if review:
             review.review = form.review.data
             review.rating = form.rating.data

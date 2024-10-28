@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link needed for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- Link for Bootstrap styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Link for custom stylesheet -->
     <link rel="stylesheet" href="/static/stylesheets/style.css" />
     <title>{% block title %} {% endblock %}</title>
 </head>
@@ -15,24 +18,30 @@
 <body>
     <div class="grid-container">
         <header>
-            <!-- First Navbar -->
+            <!-- First Navbar for site navigation -->
             <nav class="navbar navbar-expand">
                 <div id="nav-content" class="container-fluid">
+                    <!-- Site logo to link to the homepage -->
                     <a href="{{ url_for('homepage') }}">
                         <span id="site-logo"><span>Dream</span><span>Reads</span></span>
                     </a>
                     <ul class="nav navbar-nav">
                         {% if not stored_user %}
+                        <!-- Navigation links for users not signed in -->
                         <li id="signin-btn" class="nav-item"><a class="btn nav1-btn me-2" href="{{ url_for('signin') }}">Sign In</a></li>
                         <li id="join-btn" class="nav-item"><a class="btn nav1-btn" href="{{ url_for('register') }}">Join</a></li>
                         {% endif %}
+                        <!-- Navigation links for users signed in -->
                         {% if stored_user %}
+                        <!-- Navigation link for account with dropdown to view profile and logout -->
                         <li class="nav-item dropdown">
                             <a class="main-nav nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img id="navbar-pic" src="{{stored_user.profile_image_url}}" alt="profile pic thumbnail">
                             </a>
                             <ul class="dropdown-menu">
+                                <!-- Link to user's profile -->
                                 <a class="dropdown-item" href="{{ url_for('show_profile', id_first_last=stored_user.id ~ '-' ~ stored_user.first_name ~ '-' ~ stored_user.last_name) }}">Profile</a>
+                                <!-- Link to logout -->
                                 <li><a class="dropdown-item" href="{{ url_for('signout') }}">Sign Out</a></li>
                             </ul>
                         </li>
@@ -41,10 +50,11 @@
                 </div>
             </nav>
 
-            <!-- Second Navbar -->
+            <!-- Second Navbar for additional options -->
             <nav id="nav-content2" class="navbar navbar-expand">
                 <div id="nav2" class="container-fluid">
                     <ul class="nav navbar-nav">
+                        <!-- Href logic to direct the user to login screen in they are not signed in and they click on My Books -->
                         <li class="nav-item"><a class="second-nav nav-link" href="
                             {% if stored_user %}
                             {{ url_for('show_mybooks') }}
@@ -55,6 +65,7 @@
                         <li class="nav-item dropdown">
                             <a class="second-nav nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse</a>
                             <ul class="dropdown-menu">
+                                <!-- Links to book Genres -->
                                 <li><a class="dropdown-item" href="{{ url_for('browse_genre', genre='adventure') }}">Adventure</a></li>
                                 <li><a class="dropdown-item" href="{{ url_for('browse_genre', genre='fantasy') }}">Fantasy</a></li>
                                 <li><a class="dropdown-item" href="{{ url_for('browse_genre', genre='horror') }}">Horror</a></li>
@@ -65,6 +76,7 @@
                             </ul>
                         </li>
                         {% if stored_user %}
+                        <!-- Link to search for books, if user is logged in -->
                         <li class="nav-item"><a class="second-nav nav-link" href="{{ url_for('search_books') }}"><i class="fa-solid fa-magnifying-glass me-1"></i>Books</a></li>
                         {% endif %}
                     </ul>
@@ -72,7 +84,7 @@
             </nav>
             {% block search %} {% endblock %}
 
-            <!-- Flash Messages -->
+            <!-- Flash Messages section -->
             <div class="container">
                 {% for category, message in get_flashed_messages(with_categories=True) %}
                 <div class="alert alert-{{ category }}">

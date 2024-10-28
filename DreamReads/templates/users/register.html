@@ -7,42 +7,47 @@ GoodReads | Join
 {% block content %}
 <h1 class="merriweather" id="signin-h1">Create Account</h1>
 <div class="content">
-<form method="POST" id="register-form" class="Roboto">
-    {{ form.hidden_tag() }}
-    
-    {% for field in form if field.widget.input_type != 'hidden' %}
-        {{ field.label(class="form-label") }}
-        {{ field(class="form-control form-field-control") }}
+    <!-- Form for user registration -->
+    <form method="POST" id="register-form" class="Roboto">
+        <!-- CSRF protection tag -->
+        {{ form.hidden_tag() }}
         
-        {% if field == form.password %}
-            <small id="password-info">
-                <i class="fa-solid fa-circle-info"></i> Passwords must be at least 6 characters.
-            </small><br />
-        {% endif %}
-        
-        {% for error in field.errors %}
-            <small class="text-danger">{{ error }}</small><br />
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {{ field.label(class="form-label") }}
+            {{ field(class="form-control form-field-control") }}
+            
+            {% if field == form.password %}
+            <!-- Additional requirements for password field-->
+                <small id="password-info">
+                    <i class="fa-solid fa-circle-info"></i> Passwords must be at least 6 characters.
+                </small><br />
+            {% endif %}
+            
+            <!-- Display errors for the field -->
+            {% for error in field.errors %}
+                <small class="text-danger">{{ error }}</small><br />
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    
-    <button class="btn btn-dark form-btn">Create Account</button>
-</form>
+        
+        <button class="btn btn-dark form-btn">Create Account</button>
+    </form>
 
-<p class="mt-4 mb-5">
-    <small>By creating an account, you agree to the DreamReads Terms of Service and Privacy Policy.</small>
-</p>
+    <p class="mt-4 mb-5">
+        <small>By creating an account, you agree to the DreamReads Terms of Service and Privacy Policy.</small>
+    </p>
 
-<p class="Roboto text-center">
-    Already have an account? <a href="{{ url_for('signin') }}">Sign In</a>
-</p>
+    <p class="Roboto text-center">
+        <!-- Link to login for exisiting users -->
+        Already have an account? <a href="{{ url_for('signin') }}">Sign In</a>
+    </p>
 
-<div class="container text-center login-register-footer">
-    <ul class="nav justify-content-center">
-        <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Terms of Service</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-    </ul>
-    <p>&copy; 2024 DreamReads, Inc</p>
-</div>
+    <div class="container text-center login-register-footer">
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Terms of Service</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+        </ul>
+        <p>&copy; 2024 DreamReads, Inc</p>
+    </div>
 </div>
 {% endblock %}
