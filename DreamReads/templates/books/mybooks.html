@@ -56,8 +56,8 @@
 									</form>
 									{% endif %} {% if shelf == 'All' %}
 									<p>
-										shelves:
-										<a href="{{ url_for('show_mybooks', shelf=list_name) }}">{{ list_name }}</a>
+										<span>shelves:</span> 
+										<a href="{{ url_for('show_mybooks', shelf=list_name) }}" class="shelf-link">{{ list_name }}</a>
 									</p>
 									{% endif %}
 

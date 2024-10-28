@@ -67,14 +67,13 @@ a {
 	color: rgb(39, 140, 59);
 }
 
-.nav-btn {
+.nav1-btn {
 	background-color: rgb(76, 44, 21);
 	color: #f4f2e9;
-	margin-right: 20px;
 	padding: 7px 20px;
 }
 
-.nav-btn:hover {
+.nav1-btn:hover {
 	background-color: rgb(100, 44, 21);
 	color: #f4f2e9;
 }
@@ -104,7 +103,7 @@ a {
 }
 
 .second-nav:hover {
-	background-color: #212529;
+	background-color: rgb(76, 44, 21);
 	color: white;
 }
 
@@ -132,7 +131,7 @@ a {
 /* ********************************************************************* */
 
 footer {
-	background-color: #212529;
+	background-color: rgb(76, 44, 21);
 	color: white;
 	padding: 20px 0px;
 }
@@ -481,7 +480,7 @@ div .flash-message {
 #leftCol {
 	width: 200px;
 	margin-top: 40px;
-	margin-bottom: 0px;
+	margin-bottom: 20px;
 }
 
 #leftCol nav {
@@ -661,6 +660,9 @@ div .flash-message {
 		padding: 0px;
 		text-align: center;
 	}
+	.shelf-link {
+		display: block;
+	}
 }
 
 @media screen and (max-width: 770px) {
@@ -689,6 +691,9 @@ div .flash-message {
 		margin-left: 10px;
 		justify-content: flex-end;
 	}
+	.book-info form {
+		order: 1;
+	}
 }
 
 @media screen and (max-width: 1000px) {
@@ -715,7 +720,7 @@ div .flash-message {
 	}
 	#mybooks-nav ul li {
 		border-bottom: 0.5px solid rgb(158, 157, 157);
-		padding: 5px 20px;
+		padding: 5px 0px;
 	}
 	#mybooks-nav ul li a {
 		color: black;
@@ -724,6 +729,12 @@ div .flash-message {
 	#mybooks-nav ul li a span {
 		color: grey;
 		font-weight: 500;
+	}
+	#mybooks-nav ul li a:hover {
+		color: blue;
+	}
+	#mybooks-nav ul li a span:hover {
+		color: blue;
 	}
 }
 

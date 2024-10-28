@@ -23,8 +23,8 @@
                     </a>
                     <ul class="nav navbar-nav">
                         {% if not stored_user %}
-                        <li id="signin-btn" class="nav-item"><a class="btn btn-dark nav1-btn me-2" href="{{ url_for('signin') }}">Sign In</a></li>
-                        <li id="join-btn" class="nav-item"><a class="btn btn-dark nav1-btn" href="{{ url_for('register') }}">Join</a></li>
+                        <li id="signin-btn" class="nav-item"><a class="btn nav1-btn me-2" href="{{ url_for('signin') }}">Sign In</a></li>
+                        <li id="join-btn" class="nav-item"><a class="btn nav1-btn" href="{{ url_for('register') }}">Join</a></li>
                         {% endif %}
                         {% if stored_user %}
                         <li class="nav-item dropdown">
