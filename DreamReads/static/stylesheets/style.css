@@ -462,13 +462,10 @@ div .flash-message {
 }
 
 #profile-edit-form {
-	width: 100%;
+	max-width: 400px;
 	align-content: center;
-}
-
-#profile-edit-container {
-	width: 400px;
-}
+	margin: 0 auto;
+} 
 
 /* My Books page styles */
 /* ********************************************************************* */
