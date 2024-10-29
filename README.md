@@ -48,7 +48,7 @@ $ pip3 install -r requirements.txt
 ```bash
 $ touch .env
 ```
-- In the env file you will need to create a contant for:
+- In the env file you will need to create a constant for:
 ```bash
 API_KEY = 
 DATABASE_URL = 
