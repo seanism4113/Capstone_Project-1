@@ -208,6 +208,12 @@ def get_user_books():
         return {book.id: list_name for book, list_name in db.session.query(Book, BookList.list_name).join(BookList).filter_by(user_id=stored.user.id).all()}
     return {}
 
+@app.route('/genres/search')
+def redirect_browse_genre():
+    """ Redirect to browse genre after getting query """
+    genre = request.args.get("genre", "").strip()
+    return redirect(url_for('browse_genre', genre=genre))
+
 
 @app.route('/genres/', defaults={'genre': ''})
 @app.route('/genres/<genre>')
