@@ -1,7 +1,7 @@
 <!-- Search Bar by Genre -->
 <div class="searchbar">
         <!-- Form for submitting the genre search query -->
-    <form method="get" action="" onsubmit="this.action = '/genres/' + this.querySelector('.genre-input').value;">
+    <form method="get" onsubmit="event.preventDefault(); window.location.href = '/genres/' + this.querySelector('.genre-input').value;">
         <div class="input-group">
             <input 
                 type="text" 
