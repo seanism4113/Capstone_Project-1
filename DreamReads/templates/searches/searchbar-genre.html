@@ -1,12 +1,11 @@
 <!-- Search Bar by Genre -->
 <div class="searchbar">
         <!-- Form for submitting the genre search query -->
-    <form action="{{ url_for('browse_genre') }}" method="get">
+    <form method="get" action="" onsubmit="this.action = '/genres/' + this.querySelector('.genre-input').value;">
         <div class="input-group">
             <input 
-                name="genre" 
                 type="text" 
-                class="form-control" 
+                class="form-control genre-input" 
                 placeholder="Search by genre" 
                 required 
             />
@@ -16,3 +15,4 @@
         </div>
     </form>
 </div>
+

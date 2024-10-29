@@ -210,7 +210,7 @@ def get_user_books():
 
 
 @app.route('/genres/', defaults={'genre': ''})
-@app.route('/genres/<string:genre>')
+@app.route('/genres/<genre>')
 def browse_genre(genre):
     """  Allows the user to browse books by genre and renders the browse page.  Includes the form
         to add book to a list on this page.
